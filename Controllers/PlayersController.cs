@@ -27,7 +27,7 @@ namespace WebAPI.Controllers
         [HttpGet("players")]
         public async Task<ActionResult<IEnumerable<Player>>> GetPlayers()
         {
-            var results = await _mediator.Send(new GetResultsQuery());
+            var results = await _mediator.Send(new GetPlayersQuery());
             return Ok(new { Results = results });
         }
 
