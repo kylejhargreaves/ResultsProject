@@ -3,22 +3,25 @@ import { HttpClient } from '@angular/common/http';
 import { forkJoin, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+//API interface responses
 interface PlayerResult {
-  PlayerId: number;
-  Score: number;
-  GamesPlayed: number;
+  playerId: number;
+  score: number;
+  gamesPlayed: number;
 }
 
 interface Player {
-  PlayerId: number;
-  Name: string;
+  playerId: number;
+  name: string;
 }
 
+
+//UI interface
 export interface PlayerStats {
-  PlayerId: number;
-  Name: string;
-  Score: number;
-  GamesPlayed: number;
+  position: number;
+  playerName: string;
+  gamesPlayed: number;
+  totalScore: number;
 }
 
 @Injectable({
@@ -39,18 +42,20 @@ export class ResultsDataService {
     return forkJoin([results$, players$]).pipe(
       map(([resultsData, playersData]) => {
 
+        console.log(resultsData);
+        console.log(playersData);
         // Do a look up for the player data
         const playersMap = new Map<number, string>();
         playersData.Players.forEach(player => {
-          playersMap.set(player.PlayerId, player.Name);
+          playersMap.set(player.playerId, player.name);
         });
 
         // Combine the results into an array
-        return resultsData.Results.map(result => ({
-          PlayerId: result.PlayerId,
-          Name: playersMap.get(result.PlayerId) || 'Unknown',
-          Score: result.Score,
-          GamesPlayed: result.GamesPlayed
+        return resultsData.Results.map((result,index) => ({
+          position: index + 1,
+          playerName: playersMap.get(result.playerId) || 'Unknown',
+          gamesPlayed: result.gamesPlayed,
+          totalScore: result.score,
         }));
       })
     );
