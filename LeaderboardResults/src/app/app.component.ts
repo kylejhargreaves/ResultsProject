@@ -13,6 +13,6 @@ import { MatTableModule } from '@angular/material/table';
     MatTableModule,
     ResultsTableComponent
   ],
-  template: `<app-results-table></app-results-table>`
+  template: `<results-table></results-table>`
 })
 export class AppComponent { }
