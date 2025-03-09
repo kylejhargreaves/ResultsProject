@@ -30,5 +30,17 @@ namespace WebAPI.Controllers
             return Ok(new { Results = results });
         }
 
+        [HttpPost("results")]
+        public async Task<IActionResult> AddResults([FromBody] AddResultsCommand command)
+        {
+            if (command == null || command.Results == null || command.Results.Count == 0)
+            {
+                return BadRequest("Invalid or empty results data.");
+            }
+
+            var addedResults = await _mediator.Send(command);
+            return Ok(new { Results = addedResults });
+        }
+
     }
 }

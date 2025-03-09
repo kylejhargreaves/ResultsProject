@@ -31,6 +31,17 @@ namespace WebAPI.Controllers
             return Ok(new { Results = results });
         }
 
-       
+        [HttpPost("players")]
+        public async Task<ActionResult<Player>> AddPlayer([FromBody] AddPlayerCommand command)
+        {
+            if (command == null || string.IsNullOrWhiteSpace(command.Name))
+            {
+                return BadRequest("Player name is required.");
+            }
+
+            var newPlayer = await _mediator.Send(command);
+            return CreatedAtAction(nameof(GetPlayers), new { id = newPlayer.PlayerId }, newPlayer);
+        }
+
     }
 }
