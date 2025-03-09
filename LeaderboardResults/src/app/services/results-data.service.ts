@@ -34,30 +34,59 @@ export class ResultsDataService {
 
   constructor(private http: HttpClient) { }
 
+  getCupIcon(position: number): string {
+    switch (position) {
+      case 1:
+        return 'assets/icons/gold-cup.svg';
+      case 2:
+        return 'assets/icons/silver-cup.svg';
+      case 3:
+        return 'assets/icons/bronze-cup.svg';
+      default:
+        return '';  
+    }
+  }
+
   getPlayerStats(): Observable<PlayerStats[]> {
     const results$ = this.http.get<{ results: PlayerResult[] }>(this.resultsUrl);
     const players$ = this.http.get<{ players: Player[] }>(this.playersUrl);
 
-    // use fork as results is dependant on player data
+    // Use forkJoin as results depend on player data
     return forkJoin([results$, players$]).pipe(
       map(([resultsData, playersData]) => {
 
-        console.log(resultsData);
-        console.log(playersData);
-        // Do a look up for the player data
+        // Create a lookup map for player names
         const playersMap = new Map<number, string>();
         playersData.players.forEach(player => {
           playersMap.set(player.playerId, player.name);
         });
 
-        // Combine the results into an array
-        return resultsData.results.map((result,index) => ({
-          position: index + 1,
+        //put the results in an array
+        let combinedResults = resultsData.results.map(result => ({
+          playerId: result.playerId,
           playerName: playersMap.get(result.playerId) || 'Unknown',
           gamesPlayed: result.gamesPlayed,
           totalScore: result.score,
         }));
+
+        // Sort by totalScore descending, then by gamesPlayed ascending
+        combinedResults.sort((a, b) => {
+          if (b.totalScore !== a.totalScore) {
+            return b.totalScore - a.totalScore; // Higher score first
+          }
+          return a.gamesPlayed - b.gamesPlayed; // If tied, do fewer games played first
+        });
+
+        // Assign positions based on sorted order
+        return combinedResults.map((player, index) => ({
+          position: index + 1, // Rank starts from 1
+          icon: this.getCupIcon(index + 1),
+          playerName: player.playerName,
+          gamesPlayed: player.gamesPlayed,
+          totalScore: player.totalScore,
+        }));
       })
     );
   }
+
 }

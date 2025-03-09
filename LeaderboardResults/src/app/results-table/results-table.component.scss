@@ -5,8 +5,9 @@
 :host ::ng-deep th.custom-header {
   background-color: $mab-secondary-light;
 }
+
 .custom-header {
-  background-color: $mab-secondary-light; // Header cells get the secondary light background
+  background-color: $mab-secondary-light; 
   height: 88px; // Sets the fixed header height
   line-height: 88px; // Centers the header text vertically
   padding: 0 16px; // Optional: adjust horizontal spacing
@@ -26,3 +27,37 @@
   line-height: 140%;
   letter-spacing: -0.25px;
 }
+.player-search {
+  background-color: $mab-secondary-light;
+  width: 200px;
+  display: inline-block;
+}
+.cup-icon {
+  height: auto;
+  vertical-align: middle; /* Aligns it to the text */
+  position: relative;
+  margin-left:5px;
+}
+.search-container {
+  position: relative;
+}
+
+.player-search {
+  opacity: 0;
+  padding:5px;
+  max-height: 0;
+  overflow: hidden;
+  transform: translateY(-5px);
+  transition: opacity 0.3s ease, max-height 0.3s ease;
+  margin-top: 10px;
+  width: 100%;
+  background-color: $mab-primary-light;
+}
+
+.player-header:hover ~ .player-search,
+.search-container:hover .player-search {
+  opacity: 1;
+  max-height: 60px;
+  transform: translateY(0); /* Slide down smoothly */
+}
+

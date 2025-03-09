@@ -3,7 +3,7 @@
   display: grid;
   grid-template-columns: auto auto auto; /* Three fixed-width columns */
   grid-template-rows: 296px auto; /* First row = Info Cards, Second row = Results */
-  gap: 20px 20px; /* Row gap: 20px, Column gap: 20px */
+  gap: 0px 20px; /* Row gap: 20px, Column gap: 20px */
   width: fit-content; /* Only takes necessary space */
   height: auto; /* Allow grid to expand as needed */
   padding: 20px;
