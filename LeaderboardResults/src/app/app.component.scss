@@ -1,76 +1,78 @@
 /* Main grid container */
 .page-container {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 equal columns on desktop */
-  grid-template-rows: min-content min-content; /* Keeps rows compact */
-  gap: 20px; /* Keeps consistent spacing between elements */
-  width: 100vw; /* Use full viewport width */
-  height: auto; /* Allow the grid to expand as needed */
-  padding: 20px; /* this is the difference between cards on the figma diagram*/
-  align-items: start; /* Prevents stretching */
-  box-sizing: border-box; /* Prevents padding from causing overflow */
-  overflow-x: hidden; /* Prevents horizontal scrolling */
+  grid-template-columns: auto auto auto; /* Three fixed-width columns */
+  grid-template-rows: 296px auto; /* First row = Info Cards, Second row = Results */
+  gap: 20px 20px; /* Row gap: 20px, Column gap: 20px */
+  width: fit-content; /* Only takes necessary space */
+  height: auto; /* Allow grid to expand as needed */
+  padding: 20px;
+  align-items: start;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  margin: 0 auto; /* Center grid horizontally */
 }
 
-/* Ensure all cards stretch horizontally without increasing row height */
+/* Ensure all info cards have a fixed size */
 .info-card {
-  display: flex;
-  justify-content: center;
-  align-items: stretch; /* Stretches to fit height of row */
-  width: 100%;
-  height: auto; /* Allow it to expand if needed */
+  width: 453px; /* Fixed width */
+  height: 206px; /* Fixed height */
 }
 
-/* Allow child components (Intro, Contact, Find Us) to fully expand */
-.info-card > * {
+/* Ensure `mat-card` inside expands properly */
+.info-card mat-card {
   width: 100%;
-  height: auto;
+  height: 100%;
 }
 
-/* Results Table should span full width but stay compact */
+/* Results Table should remain centered below the cards */
 .results-container {
   grid-column: 1 / -1; /* Spans across all columns */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  min-height: 250px; /* Increase minimum height */
-  height: auto; /* Allow it to expand when needed */
-  position: relative; /* Prevents overlapping */
-  z-index: 1; /* Ensures it's behind other content */
+  width: 1400px; /* Fixed width */
+  height: 546px; /* Fixed height */
+  position: relative;
+  z-index: 1;
 }
 
 /* Ensure the results-table component fills its container */
 .results-container > * {
   width: 100%;
-  max-width: 100%;
+  height: 100%;
 }
-
-/*  Responsive Layout: Single Column for Mobile */
 @media (max-width: 768px) {
   .page-container {
-    grid-template-columns: 1fr; /* Single column layout */
-    grid-template-rows: auto auto auto auto; /* Allow all rows to expand */
-    height: auto; /* Ensure grid expands when needed */
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto auto;
+    grid-template-areas:
+      "intro" "results" "contact" "find";
+    gap: 20px;
+    width: 100%;
+    height: auto;
   }
 
+  .info-card,
+  .info-card mat-card,
+  .results-container {
+    width: 100%;
+    height: auto;
+  }
 
-  // the orderings for mobile
   .info-card.intro {
-    order: 1;
+    grid-area: intro;
   }
 
   .results-container {
-    order: 2;
-    grid-column: auto;
-    position: static; /* Ensures normal flow, no overlapping */
+    grid-area: results;
   }
 
   .info-card.contact {
-    order: 3;
+    grid-area: contact;
   }
 
   .info-card.find {
-    order: 4;
+    grid-area: find;
   }
 }
+
+
