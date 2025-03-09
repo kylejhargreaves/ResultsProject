@@ -35,8 +35,8 @@ export class ResultsDataService {
   constructor(private http: HttpClient) { }
 
   getPlayerStats(): Observable<PlayerStats[]> {
-    const results$ = this.http.get<{ Results: PlayerResult[] }>(this.resultsUrl);
-    const players$ = this.http.get<{ Players: Player[] }>(this.playersUrl);
+    const results$ = this.http.get<{ results: PlayerResult[] }>(this.resultsUrl);
+    const players$ = this.http.get<{ players: Player[] }>(this.playersUrl);
 
     // use fork as results is dependant on player data
     return forkJoin([results$, players$]).pipe(
@@ -46,12 +46,12 @@ export class ResultsDataService {
         console.log(playersData);
         // Do a look up for the player data
         const playersMap = new Map<number, string>();
-        playersData.Players.forEach(player => {
+        playersData.players.forEach(player => {
           playersMap.set(player.playerId, player.name);
         });
 
         // Combine the results into an array
-        return resultsData.Results.map((result,index) => ({
+        return resultsData.results.map((result,index) => ({
           position: index + 1,
           playerName: playersMap.get(result.playerId) || 'Unknown',
           gamesPlayed: result.gamesPlayed,
