@@ -38,6 +38,5 @@ export class AppComponent implements OnInit {
 
   updateGridColumns() {
     this.gridCols = window.innerWidth < 768 ? 1 : 3; // Columns on mobile, columns on desktop
-    console.log("Screen Width:", window.innerWidth, "Grid Cols:", this.gridCols);
   }
 }

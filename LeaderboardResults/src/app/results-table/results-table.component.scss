@@ -1,0 +1,28 @@
+@import '../../styles/_variables';
+.custom-table {
+  background-color: $mab-primary-light; // Applies the primary light background to the table
+}
+:host ::ng-deep th.custom-header {
+  background-color: $mab-secondary-light;
+}
+.custom-header {
+  background-color: $mab-secondary-light; // Header cells get the secondary light background
+  height: 88px; // Sets the fixed header height
+  line-height: 88px; // Centers the header text vertically
+  padding: 0 16px; // Optional: adjust horizontal spacing
+  margin: 0; // Remove any default margin if necessary
+}
+.main-column-style {
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 155%;
+  letter-spacing: 0px;
+}
+.position-column-style {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 140%;
+  letter-spacing: -0.25px;
+}

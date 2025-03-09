@@ -2,9 +2,7 @@
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
 @use '@angular/material' as mat;
-$mab-primary-light: #FFFFFF;
-$mab-secondary-light: #E1E1E1;
-$mab-primary-text-light: #000000;
+@import './styles/_variables';
 
 html {
   @include mat.theme((
