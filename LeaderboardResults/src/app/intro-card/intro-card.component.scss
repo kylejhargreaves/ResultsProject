@@ -4,21 +4,11 @@
   height: 206px; /* force fixed height  */
 }
 
-mat-card {
-  width: 100%; /* Ensures mat-card fills its parent */
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  padding: 16px;
-}
 
-.custom-subtitle {
+
+.intro-subtitle {
   width: 393px;
   height: 103px;
-  align-items: center;
-  align-content:center;
-  align-self:center;
 }
-.custom-card {
-  padding: 30px; /* Set your desired padding */
-}
+
+

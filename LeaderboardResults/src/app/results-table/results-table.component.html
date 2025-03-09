@@ -1,10 +1,5 @@
-
-
 <mat-card appearance="outlined">
-  <mat-card-header>
-    <mat-card-title> Results</mat-card-title>
-  </mat-card-header>
-
+  <h3>Results</h3>
   <ng-container *ngIf="dataSource && dataSource.length; else noData">
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
       <!-- Position Column -->
