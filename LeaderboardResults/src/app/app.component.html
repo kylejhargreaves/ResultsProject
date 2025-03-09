@@ -1,31 +1,17 @@
-<mat-grid-list [cols]="gridCols" rowHeight="500px" gutterSize="16px">
-  <!-- First row (Desktop): Intro, Contact Us, Find Us -->
-  <!-- First row (Mobile): Only Intro -->
-  <mat-grid-tile [colspan]="gridCols === 3 ? 1 : gridCols">
+<div class="page-container">
+  <!-- First row: Intro, Contact Us, Find Us -->
+  <div class="info-card intro">
     <intro-card></intro-card>
-  </mat-grid-tile>
-
-  <mat-grid-tile *ngIf="gridCols === 3" [colspan]="1">
+  </div>
+  <div class="info-card contact">
     <contact-card></contact-card>
-  </mat-grid-tile>
-
-  <mat-grid-tile *ngIf="gridCols === 3" [colspan]="1">
+  </div>
+  <div class="info-card find">
     <find-card></find-card>
-  </mat-grid-tile>
+  </div>
 
-  <!-- Second row: Results Table full width -->
-  <mat-grid-tile [colspan]="gridCols">
-    <div class="results-container">
-      <results-table></results-table>
-    </div>
-  </mat-grid-tile>
-
-  <!-- Third row: Contact & Find move below results on mobile -->
-  <mat-grid-tile *ngIf="gridCols === 1" [colspan]="gridCols">
-    <contact-card></contact-card>
-  </mat-grid-tile>
-
-  <mat-grid-tile *ngIf="gridCols === 1" [colspan]="gridCols">
-    <find-card></find-card>
-  </mat-grid-tile>
-</mat-grid-list>
+  <!-- Second row: Results Table (Full Width) -->
+  <div class="results-container">
+    <results-table></results-table>
+  </div>
+</div>

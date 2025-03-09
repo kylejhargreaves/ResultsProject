@@ -1,31 +1,76 @@
+/* Main grid container */
+.page-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 equal columns on desktop */
+  grid-template-rows: min-content min-content; /* Keeps rows compact */
+  gap: 20px; /* Keeps consistent spacing between elements */
+  width: 100vw; /* Use full viewport width */
+  height: auto; /* Allow the grid to expand as needed */
+  padding: 20px; /* this is the difference between cards on the figma diagram*/
+  align-items: start; /* Prevents stretching */
+  box-sizing: border-box; /* Prevents padding from causing overflow */
+  overflow-x: hidden; /* Prevents horizontal scrolling */
+}
 
-//info cards
-/*Make all info cards full width */
-.card-container {
-  width: 100%;
+/* Ensure all cards stretch horizontally without increasing row height */
+.info-card {
   display: flex;
   justify-content: center;
-}
-
-/* Make the cards stretch */
-intro-card, contact-card, find-card {
+  align-items: stretch; /* Stretches to fit height of row */
   width: 100%;
+  height: auto; /* Allow it to expand if needed */
 }
 
-mat-grid-list {
+/* Allow child components (Intro, Contact, Find Us) to fully expand */
+.info-card > * {
   width: 100%;
+  height: auto;
 }
 
-//results
+/* Results Table should span full width but stay compact */
 .results-container {
-  width: 100%;
+  grid-column: 1 / -1; /* Spans across all columns */
   display: flex;
   justify-content: center;
-}
-
-results-table {
+  align-items: center;
   width: 100%;
+  min-height: 250px; /* Increase minimum height */
+  height: auto; /* Allow it to expand when needed */
+  position: relative; /* Prevents overlapping */
+  z-index: 1; /* Ensures it's behind other content */
 }
 
+/* Ensure the results-table component fills its container */
+.results-container > * {
+  width: 100%;
+  max-width: 100%;
+}
+
+/*  Responsive Layout: Single Column for Mobile */
+@media (max-width: 768px) {
+  .page-container {
+    grid-template-columns: 1fr; /* Single column layout */
+    grid-template-rows: auto auto auto auto; /* Allow all rows to expand */
+    height: auto; /* Ensure grid expands when needed */
+  }
 
 
+  // the orderings for mobile
+  .info-card.intro {
+    order: 1;
+  }
+
+  .results-container {
+    order: 2;
+    grid-column: auto;
+    position: static; /* Ensures normal flow, no overlapping */
+  }
+
+  .info-card.contact {
+    order: 3;
+  }
+
+  .info-card.find {
+    order: 4;
+  }
+}
