@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ResultsDataService, PlayerStats } from '../services/results-data.service';
 import { MatTableModule } from '@angular/material/table';
-
+import { MatCardModule } from '@angular/material/card';
 @Component({
  selector: 'results-table',
- imports: [MatTableModule, CommonModule],
+  imports: [MatTableModule, MatCardModule, CommonModule],
  templateUrl: './results-table.component.html',
  styleUrl: './results-table.component.scss'
 
