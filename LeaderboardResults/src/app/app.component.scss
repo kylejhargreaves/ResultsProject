@@ -1,0 +1,31 @@
+
+//info cards
+/*Make all info cards full width */
+.card-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* Make the cards stretch */
+intro-card, contact-card, find-card {
+  width: 100%;
+}
+
+mat-grid-list {
+  width: 100%;
+}
+
+//results
+.results-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+results-table {
+  width: 100%;
+}
+
+
+
