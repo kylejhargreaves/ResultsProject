@@ -1,8 +1,9 @@
-@import '../../styles/_variables';
+@use '../../styles/_variables' as *;
+
 .custom-table {
   background-color: $mab-primary-light; // Applies the primary light background to the table
 }
-:host ::ng-deep th.custom-header {
+th.custom-header {
   background-color: $mab-secondary-light;
 }
 

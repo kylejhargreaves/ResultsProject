@@ -102,3 +102,48 @@ a {
   text-decoration-offset: 0;
   text-decoration-thickness: 0;
 }
+
+// these header styles need to go here, dont work in component
+.mat-sort-header-arrow {
+  display: none !important;
+}
+
+.mat-sort-header {
+  align-items: center;
+  position: relative;
+}
+
+.mat-sort-header-content {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 10px;
+}
+
+.mat-sort-header-content::after {
+  content: "";
+  display: inline-block; /* Stay next to text */
+  width: 0;
+  height: 0;
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
+  border-bottom: 10px solid black;
+  opacity: 0;
+  transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
+}
+
+// material has 3 sort states
+.mat-sort-header[aria-sort="ascending"] .mat-sort-header-content::after {
+  opacity: 1;
+  transform: rotate(180deg); /* Triangle up */
+}
+
+.mat-sort-header[aria-sort="descending"] .mat-sort-header-content::after {
+  opacity: 1;
+  transform: rotate(0deg); /* Triangle down */
+}
+
+/* Hide triangle */
+.mat-sort-header:not([aria-sort]) .mat-sort-header-content::after {
+  opacity: 0;
+}
+
