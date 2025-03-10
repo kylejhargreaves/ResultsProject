@@ -19,6 +19,7 @@ interface Player {
 //UI interface
 export interface PlayerStats {
   position: number;
+  icon: string; // the svg path
   playerName: string;
   gamesPlayed: number;
   totalScore: number;
