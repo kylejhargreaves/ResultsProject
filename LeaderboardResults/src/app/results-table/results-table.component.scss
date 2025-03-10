@@ -28,24 +28,21 @@ th.custom-header {
   line-height: 140%;
   letter-spacing: -0.25px;
 }
-.player-search {
-  background-color: $mab-secondary-light;
-  width: 200px;
-  display: inline-block;
-}
+
 .cup-icon {
   height: auto;
-  vertical-align: middle; /* Aligns it to the text */
+  vertical-align: text-top;
   position: relative;
-  margin-left:5px;
+  margin-left: 5px;
 }
 .search-container {
   position: relative;
 }
 
 .player-search {
+  display: inline-block;
   opacity: 0;
-  padding:5px;
+  padding-top:5px;
   max-height: 0;
   overflow: hidden;
   transform: translateY(-5px);
