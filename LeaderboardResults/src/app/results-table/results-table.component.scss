@@ -14,6 +14,11 @@ th.custom-header {
   padding: 0 16px; // Optional: adjust horizontal spacing
   margin: 0; // Remove any default margin if necessary
 }
+
+td {
+  border-color: $mab-secondary-light
+}
+
 .main-column-style {
   font-family: 'Lato', sans-serif;
   font-weight: 400;
