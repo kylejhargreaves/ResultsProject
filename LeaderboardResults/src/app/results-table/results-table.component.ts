@@ -1,42 +1,59 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ResultsDataService, PlayerStats } from '../services/results-data.service';
-import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatSortModule } from '@angular/material/sort';
+import { MatSort } from '@angular/material/sort';
+import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'results-table',
   imports: [
-    MatTableModule,
+    CommonModule,
     MatCardModule,
-    MatFormFieldModule,
     MatInputModule,
-    CommonModule
+    MatFormFieldModule,
+    MatTableModule,
+    MatSortModule,
   ],
   templateUrl: './results-table.component.html',
   styleUrls: ['./results-table.component.scss']
 })
-export class ResultsTableComponent implements OnInit {
+export class ResultsTableComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['position', 'playerName', 'gamesPlayed', 'totalScore'];
   dataSource: MatTableDataSource<PlayerStats> = new MatTableDataSource();
   errorMessage: string | null = null;
 
+  @ViewChild(MatSort) sort!: MatSort;
   constructor(private resultsDataService: ResultsDataService) { }
+   
+    ngOnInit(): void {
+      this.resultsDataService.getPlayerStats().subscribe({
+        next: (data: PlayerStats[]) => {
+          this.dataSource.data = data;
 
-  ngOnInit(): void {
-    console.log('ResultsTableComponent ngOnInit fired');
-    this.resultsDataService.getPlayerStats().subscribe({
-      next: (data: PlayerStats[]) => {
-        console.log('Data loaded:', data);
-        this.dataSource.data = data;
-      },
-      error: (err) => {
-        console.error('Error loading data:', err);
-        this.errorMessage = 'Service is unavailable.';
-      }
-    });
+          // Alllow view to be initialized before trying to sort
+          setTimeout(() => {
+            if (this.sort) {
+              this.dataSource.sort = this.sort;
+            } else {
+              console.warn('MatSort is still not available');
+            }
+          });
+        },
+        error: (err) => {
+          this.errorMessage = 'Service is unavailable.';
+        }
+      });
+    }
+
+
+  ngAfterViewInit() {
+    if (this.sort) {
+      this.dataSource.sort = this.sort;
+    }
   }
 
   applyFilter(event: Event) {
